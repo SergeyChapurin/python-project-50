@@ -1,0 +1,17 @@
+install:
+	poetry install
+
+build:
+	poetry build
+
+publish:
+	poetry publish --dry-run
+
+package-install:
+	python3 -m pip install --user dist/*.whl
+
+quick-install:
+	poetry install
+	poetry build
+	poetry publish --dry-run
+	pip install --user --force-reinstall dist/*.whl
