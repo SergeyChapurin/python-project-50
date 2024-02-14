@@ -15,3 +15,6 @@ quick-install:
 	poetry build
 	poetry publish --dry-run
 	pip install --user --force-reinstall dist/*.whl
+
+lint:
+	poetry run flake8 gendiff
