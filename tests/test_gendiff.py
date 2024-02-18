@@ -2,8 +2,8 @@ from gendiff import generate_diff
 
 
 def test_generate_diff():
-    file1_path = 'fixtures/file1.json'
-    file2_path = 'fixtures/file2.json'
+    file1_path = 'tests/fixtures/file1.json'
+    file2_path = 'tests/fixtures/file2.json'
 
 
     expected_result = ('{\n' + '- follow: false\n' + '  host: hexlet.io\n'
