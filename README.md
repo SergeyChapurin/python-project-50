@@ -9,3 +9,7 @@
 [![asciicast](https://asciinema.org/a/nOL2VUocXaWlPAX9XJY7S4dS9.svg)](https://asciinema.org/a/nOL2VUocXaWlPAX9XJY7S4dS9)
 ### Аскинема с примером работы пакета gendiff (файлы yaml):
 [![asciicast](https://asciinema.org/a/eDQv9TAkIGVxE88p1JmdTjuNO.svg)](https://asciinema.org/a/eDQv9TAkIGVxE88p1JmdTjuNO)
+### Аскинема с примером работы пакета gendiff (файлы yml со вложенностью):
+[![asciicast](https://asciinema.org/a/N8yGP9Pz5nLjhlDugBtY0y4Pj.svg)](https://asciinema.org/a/N8yGP9Pz5nLjhlDugBtY0y4Pj)
+### Аскинема с примером работы пакета gendiff (файлы json со вложенностью):
+[![asciicast](https://asciinema.org/a/fh38d5CZyGkxse0USNBdD2zLc.svg)](https://asciinema.org/a/fh38d5CZyGkxse0USNBdD2zLc)
