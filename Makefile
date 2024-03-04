@@ -13,10 +13,10 @@ package-install:
 package-reinstall:
 	python3 -m pip install . --force-reinstall
 
-quick-install:
-	poetry install
+quick-package-reinstall:
 	poetry build
 	poetry publish --dry-run
+	python3 -m pip install . --force-reinstall
 
 test:
 	poetry run pytest

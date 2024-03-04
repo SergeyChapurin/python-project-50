@@ -41,3 +41,7 @@ def format_stylish(diff, depth=0):
     tree.append(f"{' ' * depth}}}")
     tree = '\n'.join(tree)
     return tree
+
+
+def stylish(diff):
+    return format_stylish(diff)
