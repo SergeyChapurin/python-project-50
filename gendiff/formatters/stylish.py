@@ -18,7 +18,7 @@ def stringify(value, depth):
         lines = ["{"]
         for key, val in value.items():
             lines.append(f"{' ' * depth}{PREFIX['other']}{key}:{REPLACER}"
-                         f"{stringify(val, depth+INDENT)}")
+                         f"{stringify(val, depth + INDENT)}")
         lines.append(f"{' ' * depth}}}")
         return '\n'.join(lines)
 
