@@ -18,6 +18,7 @@ def test_generate_diff():
 
     file_path10 = 'tests/fixtures/expected_res_stylish.txt'
     file_path11 = 'tests/fixtures/expected_res_plain.txt'
+    file_path12 = 'tests/fixtures/expected_res_json.txt'
 
     with open(file_path5, 'r') as file:
         expected_result = file.read()
@@ -28,6 +29,8 @@ def test_generate_diff():
     with open(file_path11, 'r') as file:
         expected_res_plain = file.read()
 
+    with open(file_path12, 'r') as file:
+        expected_res_json = file.read()
 
     result_json = generate_diff(file_path1, file_path2, format_name='stylish')
     result_yaml = generate_diff(file_path3, file_path4, format_name='stylish')
@@ -35,6 +38,7 @@ def test_generate_diff():
     result_yaml_stylish = generate_diff(file_path8, file_path9, format_name='stylish')
     result_json_plain = generate_diff(file_path6, file_path7, format_name='plain')
     result_yaml_plain = generate_diff(file_path8, file_path9, format_name='plain')
+    result_json_json = generate_diff(file_path1, file_path2, format_name='json')
 
     assert result_json == expected_result
     assert result_yaml == expected_result
@@ -42,8 +46,8 @@ def test_generate_diff():
     assert result_yaml_stylish == expected_res_stylish
     assert result_json_plain == expected_res_plain
     assert result_yaml_plain == expected_res_plain
+    assert result_json_json == expected_res_json
 
 
 if __name__ == '__main__':
     test_generate_diff()
-
