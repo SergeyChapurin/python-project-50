@@ -1,23 +1,98 @@
 {
-  "follow": {
+  "common": {
+    "status": "nested",
+    "value": {
+      "follow": {
+        "status": "added",
+        "value": "false"
+      },
+      "setting1": {
+        "status": "other",
+        "value": "Value 1"
+      },
+      "setting2": {
+        "status": "deleted",
+        "value": 200
+      },
+      "setting3": {
+        "status": "replaced",
+        "old_value": "true",
+        "new_value": null
+      },
+      "setting4": {
+        "status": "added",
+        "value": "blah blah"
+      },
+      "setting5": {
+        "status": "added",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      "setting6": {
+        "status": "nested",
+        "value": {
+          "doge": {
+            "status": "nested",
+            "value": {
+              "wow": {
+                "status": "replaced",
+                "old_value": "",
+                "new_value": "so much"
+              }
+            }
+          },
+          "key": {
+            "status": "other",
+            "value": "value"
+          },
+          "ops": {
+            "status": "added",
+            "value": "vops"
+          }
+        }
+      }
+    }
+  },
+  "group1": {
+    "status": "nested",
+    "value": {
+      "baz": {
+        "status": "replaced",
+        "old_value": "bas",
+        "new_value": "bars"
+      },
+      "foo": {
+        "status": "other",
+        "value": "bar"
+      },
+      "nest": {
+        "status": "replaced",
+        "old_value": {
+          "key": "value"
+        },
+        "new_value": "str"
+      }
+    }
+  },
+  "group2": {
     "status": "deleted",
-    "value": "false"
+    "value": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    }
   },
-  "host": {
-    "status": "other",
-    "value": "hexlet.io"
-  },
-  "proxy": {
-    "status": "deleted",
-    "value": "123.234.53.22"
-  },
-  "timeout": {
-    "status": "replaced",
-    "old_value": 50,
-    "new_value": 20
-  },
-  "verbose": {
+  "group3": {
     "status": "added",
-    "value": "true"
+    "value": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
   }
 }
