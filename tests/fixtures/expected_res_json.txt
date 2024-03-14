@@ -1,7 +1,7 @@
 {
   "common": {
     "status": "nested",
-    "value": {
+    "children": {
       "follow": {
         "status": "added",
         "value": "false"
@@ -31,10 +31,10 @@
       },
       "setting6": {
         "status": "nested",
-        "value": {
+        "children": {
           "doge": {
             "status": "nested",
-            "value": {
+            "children": {
               "wow": {
                 "status": "replaced",
                 "old_value": "",
@@ -56,7 +56,7 @@
   },
   "group1": {
     "status": "nested",
-    "value": {
+    "children": {
       "baz": {
         "status": "replaced",
         "old_value": "bas",
