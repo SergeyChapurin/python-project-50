@@ -13,6 +13,10 @@ def read_file(file_path):
     return data, file_format
 
 
+class UnknownFormatException:
+    pass
+
+
 def load_data(data, file_format):
     formats = {
         "yaml": yaml.safe_load,
@@ -21,6 +25,6 @@ def load_data(data, file_format):
     }
 
     if file_format not in formats:
-        raise UnsupportedFormatException(f"Unsupported format: {file_format}")
+        raise UnknownFormatException(f"Unknown format: {file_format}")
 
     return formats[file_format](data)
