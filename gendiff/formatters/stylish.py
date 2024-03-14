@@ -27,7 +27,7 @@ def format_stylish(diff, depth=0):
     tree = ['{']
     for key, val in diff.items():
         if val['status'] == 'nested':
-            new_value = format_stylish(val['value'], depth + INDENT)
+            new_value = format_stylish(val['children'], depth + INDENT)
             tree.append(f"{' ' * depth}{PREFIX['other']}{key}: "
                         f"{new_value}")
         elif val['status'] == 'replaced':

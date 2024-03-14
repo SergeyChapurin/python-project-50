@@ -25,7 +25,7 @@ def format_plain(diff, path=''):
                          f"From {stringify(val['old_value'])} "
                          f"to {stringify(val['new_value'])}")
         elif val['status'] == 'nested':
-            value = format_plain(val['value'], f"{property_path}.")
+            value = format_plain(val['children'], f"{property_path}.")
             lines.append(f"{value}")
     return '\n'.join(lines)
 

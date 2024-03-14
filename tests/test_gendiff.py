@@ -20,5 +20,7 @@ test_data = [
 def test_generate_diff(file1, file2, expected_res, format_name):
     file1_path = get_abspath(file1)
     file2_path = get_abspath(file2)
-    result = open(get_abspath(expected_res), 'r').read()
+    expected_res_path = get_abspath(expected_res)
+    with open(expected_res_path, 'r') as file:
+        result = file.read()
     assert generate_diff(file1_path, file2_path, format_name) == result
