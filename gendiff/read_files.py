@@ -13,7 +13,7 @@ def read_file(file_path):
     return data, file_format
 
 
-class UnknownFormatException:
+class UnknownFormatException(Exception):
     pass
 
 

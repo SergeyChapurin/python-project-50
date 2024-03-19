@@ -15,16 +15,16 @@ def format_plain(diff, path=''):
     lines = []
     for key, val in diff.items():
         property_path = f'{path}{key}'
-        if val['status'] == 'added':
+        if val['type'] == 'added':
             lines.append(f"Property '{property_path}' was added with value: "
                          f"{stringify(val['value'])}")
-        elif val['status'] == 'deleted':
+        elif val['type'] == 'deleted':
             lines.append(f"Property '{property_path}' was removed")
-        elif val['status'] == 'replaced':
+        elif val['type'] == 'replaced':
             lines.append(f"Property '{property_path}' was updated. "
                          f"From {stringify(val['old_value'])} "
                          f"to {stringify(val['new_value'])}")
-        elif val['status'] == 'nested':
+        elif val['type'] == 'root':
             value = format_plain(val['children'], f"{property_path}.")
             lines.append(f"{value}")
     return '\n'.join(lines)
