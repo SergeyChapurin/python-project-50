@@ -11,32 +11,36 @@ def build_nested(data1, data2):
     }
 
 
-def build_deleted(data):
+def build_deleted(key, val):
     return {
         'type': 'deleted',
-        'value': format_value(data)
+        'key': key,
+        'value': format_value(val)
     }
 
 
-def build_added(data):
+def build_added(key, val):
     return {
         'type': 'added',
-        'value': format_value(data)
+        'key': key,
+        'value': format_value(val)
     }
 
 
-def build_replaced(data1, data2):
+def build_replaced(key, val1, val2):
     return {
         'type': 'replaced',
-        'old_value': format_value(data1),
-        'new_value': format_value(data2)
+        'key': key,
+        'old_value': format_value(val1),
+        'new_value': format_value(val2)
     }
 
 
-def build_unchanged(data):
+def build_unchanged(key, val):
     return {
         'type': 'unchanged',
-        'value': format_value(data)
+        'key': key,
+        'value': format_value(val)
     }
 
 
@@ -48,18 +52,18 @@ def build_diff(data1, data2):
         new_value = data2.get(key)
 
         if key not in data2:
-            diff[key] = build_deleted(old_value)
+            diff[key] = build_deleted(key, old_value)
 
         elif key not in data1:
-            diff[key] = build_added(new_value)
+            diff[key] = build_added(key, new_value)
 
         elif isinstance(old_value, dict) and isinstance(new_value, dict):
             diff[key] = build_nested(old_value, new_value)
 
         elif old_value != new_value:
-            diff[key] = build_replaced(old_value, new_value)
+            diff[key] = build_replaced(key, old_value, new_value)
 
         else:
-            diff[key] = build_unchanged(old_value)
+            diff[key] = build_unchanged(key, old_value)
 
     return diff
