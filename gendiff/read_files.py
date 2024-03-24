@@ -1,6 +1,7 @@
 import json
 import os
 import yaml
+from gendiff.exceptions import UnknownFormatException
 
 
 def read_file(file_path):
@@ -11,10 +12,6 @@ def read_file(file_path):
         data = file.read()
 
     return data, file_format
-
-
-class UnknownFormatException(Exception):
-    pass
 
 
 def load_data(data, file_format):

@@ -15,9 +15,6 @@ def stringify(value, depth):
     if isinstance(value, str) or isinstance(value, int):
         return value
 
-    elif isinstance(value, bool):
-        return str(value).lower()
-
     elif value is None:
         return 'null'
 
@@ -31,28 +28,30 @@ def stringify(value, depth):
         return '\n'.join(lines)
 
 
-def format_stylish(diff, depth=0):
-    tree = ['{']
-    space = get_space(INDENT, depth)
+def format_stylish(diff):
+    def inner(d, depth=0):
+        tree = ['{']
+        space = get_space(INDENT, depth)
+        for item in d:
+            if item['type'] == 'nested':
+                children = inner(item['children'], depth + 1)
+                tree.append(f"{space}{PREFIX['unchanged']}{item['key']}: "
+                            f"{children}")
+            elif item['type'] == 'replaced':
+                tree.append(f"{space}{PREFIX['deleted']}{item['key']}: "
+                            f"{stringify(item['old_value'], depth + 1)}")
+                tree.append(f"{space}{PREFIX['added']}{item['key']}: "
+                            f"{stringify(item['new_value'], depth + 1)}")
+            else:
+                tree.append(f"{space}{PREFIX[item['type']]}{item['key']}: "
+                            f"{stringify(item['value'], depth + 1)}")
+        tree.append(f"{INDENT * depth}}}")
+        tree = '\n'.join(tree)
+        return tree
 
-    for key, val in diff.items():
-        if val['type'] == 'root':
-            children = format_stylish(val['children'], depth + 1)
-            tree.append(f"{space}{PREFIX['unchanged']}{key}: "
-                        f"{children}")
-
-        elif val['type'] == 'replaced':
-            tree.append(f"{space}{PREFIX['deleted']}{key}:{WHITESPACE}"
-                        f"{stringify(val['old_value'], depth + 1)}")
-            tree.append(f"{space}{PREFIX['added']}{key}:{WHITESPACE}"
-                        f"{stringify(val['new_value'], depth + 1)}")
-        else:
-            tree.append(f"{space}{PREFIX[val['type']]}{key}:{WHITESPACE}"
-                        f"{stringify(val['value'], depth + 1)}")
-
-    tree.append(f"{INDENT * depth}}}")
-    tree = '\n'.join(tree)
-    return tree
+    d = diff['children']
+    result = inner(d)
+    return result
 
 
 def stylish(diff):

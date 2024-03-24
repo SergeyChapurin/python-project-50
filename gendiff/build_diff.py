@@ -4,10 +4,11 @@ def format_value(value):
     return value
 
 
-def build_nested(data1, data2):
+def build_nested(key, data1, data2):
     return {
-        'type': 'root',
-        'children': build_diff(data1, data2)
+        'type': 'nested',
+        'key': key,
+        'children': build_difference(data1, data2)
     }
 
 
@@ -44,26 +45,30 @@ def build_unchanged(key, val):
     }
 
 
-def build_diff(data1, data2):
-    diff = {}
+def build_difference(data1, data2):
+    difference = []
 
     for key in sorted(set(data1.keys()) | set(data2.keys())):
         old_value = data1.get(key)
         new_value = data2.get(key)
 
         if key not in data2:
-            diff[key] = build_deleted(key, old_value)
-
+            difference.append(build_deleted(key, old_value))
         elif key not in data1:
-            diff[key] = build_added(key, new_value)
-
+            difference.append(build_added(key, new_value))
         elif isinstance(old_value, dict) and isinstance(new_value, dict):
-            diff[key] = build_nested(old_value, new_value)
-
+            difference.append(build_nested(key, old_value, new_value))
         elif old_value != new_value:
-            diff[key] = build_replaced(key, old_value, new_value)
-
+            difference.append(build_replaced(key, old_value, new_value))
         else:
-            diff[key] = build_unchanged(key, old_value)
+            difference.append(build_unchanged(key, old_value))
 
+    return difference
+
+
+def build_diff(data1, data2):
+    diff = {
+        "type": "root",
+        "children": build_difference(data1, data2)
+    }
     return diff
