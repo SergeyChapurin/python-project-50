@@ -14,7 +14,7 @@ def read_file(file_path):
     return data, file_format
 
 
-def load_data(data, file_format):
+def define_the_format(data, file_format):
     formats = {
         "yaml": yaml.safe_load,
         "yml": yaml.safe_load,
