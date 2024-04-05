@@ -1,4 +1,7 @@
-def stringify(value):
+from gendiff.exceptions import UnknownTypeException
+
+
+def to_str(value):
     if value is None:
         return "null"
     if isinstance(value, int):
@@ -11,33 +14,42 @@ def stringify(value):
         return f"'{value}'"
 
 
-def format_plain(diff):
-    def inner(d, key_path=''):
-        lines = []
+def format_plain(diff, key_path=''):
+    lines = []
+    children = diff.get('children')
+    node_type = diff['type']
+    key = diff.get('key', '')
+    value = diff.get('value')
+    old_value = diff.get('old_value')
+    new_value = diff.get('new_value')
+    path = f"{key_path}{key}" if key else key_path
 
-        for item in d:
-            path = f"{key_path}{item['key']}"
+    if node_type == 'root':
+        lines = map(lambda child: format_plain(child, key_path), children)
+        # return '\n'.join(lines)
 
-            if item['type'] == 'added':
-                lines.append(f"Property '{path}' was added with value: "
-                             f"{stringify(item['value'])}")
+    elif node_type == 'nested':
+        result = map(lambda child: format_plain(child, f"{path}."), children)
+        lines = filter(lambda x: x, result)
+        # return '\n'.join(lines)
 
-            elif item['type'] == 'deleted':
-                lines.append(f"Property '{path}' was removed")
+    elif node_type == 'added':
+        lines.append(f"Property '{path}' was added with value: {to_str(value)}")
 
-            elif item['type'] == 'replaced':
-                lines.append(f"Property '{path}' was updated. "
-                             f"From {stringify(item['old_value'])} "
-                             f"to {stringify(item['new_value'])}")
+    elif node_type == 'deleted':
+        lines.append(f"Property '{path}' was removed")
 
-            elif item['type'] == 'nested':
-                value = inner(item['children'], f"{path}.")
-                lines.append(f"{value}")
+    elif node_type == 'replaced':
+        lines.append(f"Property '{path}' was updated. From {to_str(old_value)} "
+                     f"to {to_str(new_value)}")
 
-        return '\n'.join(lines)
+    elif node_type == 'unchanged':
+        pass
 
-    d = diff['children']
-    return inner(d)
+    else:
+        raise UnknownTypeException(f"Unknown type: {node_type}")
+
+    return '\n'.join(lines)
 
 
 def plain(diff):

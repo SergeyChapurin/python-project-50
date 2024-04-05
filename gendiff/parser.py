@@ -25,3 +25,8 @@ def define_the_format(data, file_format):
         raise UnknownFormatException(f"Unknown format: {file_format}")
 
     return formats[file_format](data)
+
+
+def get_data(file_path):
+    data, file_format = read_file(file_path)
+    return define_the_format(data, file_format)
