@@ -7,6 +7,14 @@ readme = "README.md"
 packages = [
   { include = "gendiff" },
 ]
+classifiers = [
+  "Topic :: Education",
+  "Programming Language :: Python :: 3.10",
+  "Environment :: Console",
+  "License :: Freeware",
+]
+
+repository = "https://github.com/SergeyChapurin/python-project-50"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,7 +24,6 @@ pyyaml = "^6.0.1"
 flake8 = "^7.0.0"
 pytest = "^7.4.4"
 pytest-cov = "^4.1.0"
-
 
 [build-system]
 requires = ["poetry-core"]

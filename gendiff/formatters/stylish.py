@@ -34,6 +34,7 @@ def format_stylish(diff, depth=0):
         return f'{{\n{result}\n}}'
 
     elif node_type == 'nested':
+        ident = build_indent(depth, ' ')
         lines = map(lambda node: format_stylish(node, depth + 1), children)
         result = "\n".join(lines)
         return f'{ident}{diff["key"]}: {{\n{result}\n{ident}}}'
@@ -42,24 +43,25 @@ def format_stylish(diff, depth=0):
         old_val = stringify(diff['old_value'], depth)
         new_val = stringify(diff['new_value'], depth)
         lines.append(f'{build_indent(depth, "-")}{diff["key"]}: {old_val}')
-        lines.append(f'{build_indent(depth, "+")}{diff["key"]}: {new_val}')
+        lines.append(f'{build_indent(depth,"+")}{diff["key"]}: {new_val}')
+        return '\n'.join(lines)
 
     elif node_type == 'deleted':
         val = stringify(diff['value'], depth)
         lines.append(f'{build_indent(depth, "-")}{diff["key"]}: {val}')
+        return '\n'.join(lines)
 
     elif node_type == 'added':
         val = stringify(diff['value'], depth)
         lines.append(f'{build_indent(depth, "+")}{diff["key"]}: {val}')
+        return '\n'.join(lines)
 
     elif node_type == 'unchanged':
         val = stringify(diff['value'], depth)
         lines.append(f'{ident}{diff["key"]}: {val}')
+        return '\n'.join(lines)
 
-    else:
-        raise UnknownTypeException(f"Unknown type: {node_type}")
-
-    return '\n'.join(lines)
+    raise UnknownTypeException(f"Unknown type: {node_type}")
 
 
 def stylish(diff):

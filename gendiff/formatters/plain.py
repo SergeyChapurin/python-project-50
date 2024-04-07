@@ -26,30 +26,30 @@ def format_plain(diff, key_path=''):
 
     if node_type == 'root':
         lines = map(lambda child: format_plain(child, key_path), children)
-        # return '\n'.join(lines)
+        return '\n'.join(lines)
 
     elif node_type == 'nested':
         result = map(lambda child: format_plain(child, f"{path}."), children)
         lines = filter(lambda x: x, result)
-        # return '\n'.join(lines)
+        return '\n'.join(lines)
 
     elif node_type == 'added':
         lines.append(f"Property '{path}' was added with value: {to_str(value)}")
+        return '\n'.join(lines)
 
     elif node_type == 'deleted':
         lines.append(f"Property '{path}' was removed")
+        return '\n'.join(lines)
 
     elif node_type == 'replaced':
         lines.append(f"Property '{path}' was updated. From {to_str(old_value)} "
                      f"to {to_str(new_value)}")
+        return '\n'.join(lines)
 
     elif node_type == 'unchanged':
-        pass
+        return
 
-    else:
-        raise UnknownTypeException(f"Unknown type: {node_type}")
-
-    return '\n'.join(lines)
+    raise UnknownTypeException(f"Unknown type: {node_type}")
 
 
 def plain(diff):
