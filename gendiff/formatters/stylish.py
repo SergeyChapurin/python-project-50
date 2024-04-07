@@ -43,7 +43,7 @@ def format_stylish(diff, depth=0):
         old_val = stringify(diff['old_value'], depth)
         new_val = stringify(diff['new_value'], depth)
         lines.append(f'{build_indent(depth, "-")}{diff["key"]}: {old_val}')
-        lines.append(f'{build_indent(depth,"+")}{diff["key"]}: {new_val}')
+        lines.append(f'{build_indent(depth, "+")}{diff["key"]}: {new_val}')
         return '\n'.join(lines)
 
     elif node_type == 'deleted':
